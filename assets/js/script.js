@@ -20,8 +20,10 @@ $( document ).ready(function(){
             return response.json();
         })
         .then(function(data){
+            console.log(data)
             // Update title, temperature, wind, and humidity
             currentWeather.children('h1').text('Today, ' + dayjs().format('MMMM D, YYYY') + ' the current weather for ' + data.name + ' is:');
+            currentWeather.children('img').attr('src', 'https://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png')
             currentWeather.children('ul').children('.temperature').text('Temp: ' + data.main.temp + '°F');
             currentWeather.children('ul').children('.wind').text('Wind: ' + data.wind.speed + 'MPH');
             currentWeather.children('ul').children('.humidity').text('Humidity: ' + data.main.humidity + '%');
@@ -49,6 +51,7 @@ $( document ).ready(function(){
                     timeInterval = 5 + (i * 8);
                 }
                 forecastDay.children('h5').text(dayjs(data.list[timeInterval].dt_txt).format('MMMM D, YYYY'));
+                forecastDay.children('img').attr('src', 'https://openweathermap.org/img/wn/' + data.list[timeInterval].weather[0].icon + '@2x.png')
                 forecastDay.children('ul').children('.temperature').text('Temp: ' + data.list[timeInterval].main.temp + '°F');
                 forecastDay.children('ul').children('.wind').text('Wind: ' + data.list[timeInterval].wind.speed + 'MPH');
                 forecastDay.children('ul').children('.humidity').text('Humidity: ' + data.list[timeInterval].main.humidity + '%');
