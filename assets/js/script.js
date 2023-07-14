@@ -81,7 +81,17 @@ $(document).ready(function(){
     }
 
     var saveSearchHistory = function(cityName){
-
+        var storedCities = [];
+        if(localStorage.getItem(cities)){
+            storedCities = JSON.parse(localStorage.getItem(cities));
+            storedCities.push(cityName);
+            localStorage.setItem('cities', JSON.stringify(storedCities));
+            console.log(storedCities);
+        }
+        else{
+            localStorage.setItem('cities', JSON.stringify(cityName));
+        }
+        createHistoryEntry(cityName);
     }
 
     //When the user submits a city name to the form, stop form default function,
