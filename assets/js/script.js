@@ -11,11 +11,14 @@ $(document).ready(function(){
     var cityLat = 0;
     var currentCity = "";
 
+    //checks local storage to see if any previous searches exist, and if so, display them
     var displayHistory = function(){
         if(localStorage.getItem('cities')){
             var storedCities = JSON.parse(localStorage.getItem('cities'));
+            console.log(storedCities)
             for(var i = 0; i < storedCities.length; i++){
                 createHistoryEntry(storedCities[i]);
+
             }
         }
         else{
@@ -92,6 +95,7 @@ $(document).ready(function(){
 
     }
 
+    //Creates a new button on the screen with a city name
     var createHistoryEntry = function(cityName){
         var newEntry = $('<button></button>');
         newEntry.text(cityName);
@@ -111,15 +115,22 @@ $(document).ready(function(){
         createHistoryEntry(cityName);
     }
 
+    //display history, if it exists, on page load
     displayHistory();
+
     //When the user submits a city name to the form, stop form default function,
     //display weather, and save city to history
     searchForm.submit(function(event){
         event.preventDefault();
-
         currentCity = searchInput.val();
         displayWeather(currentCity);
         saveSearchHistory(currentCity);
+    })
+
+    historyList.on('click', 'button', function(event){
+        var buttonValue = event.target.textContent;
+        console.log(buttonValue);
+        displayWeather(buttonValue);
     })
 
 })
