@@ -103,6 +103,9 @@ $(document).ready(function(){
     }
 
     var saveSearchHistory = function(cityName){
+        if (localStorage.getItem('cities').includes(cityName)){
+            return;
+        }
         if(localStorage.getItem('cities')){
             var storedCities = JSON.parse(localStorage.getItem('cities'));
             storedCities.push(cityName);
@@ -113,6 +116,7 @@ $(document).ready(function(){
             localStorage.setItem('cities', JSON.stringify([cityName]));
         }
         createHistoryEntry(cityName);
+
     }
 
     //display history, if it exists, on page load
@@ -129,7 +133,6 @@ $(document).ready(function(){
 
     historyList.on('click', 'button', function(event){
         var buttonValue = event.target.textContent;
-        console.log(buttonValue);
         displayWeather(buttonValue);
     })
 
