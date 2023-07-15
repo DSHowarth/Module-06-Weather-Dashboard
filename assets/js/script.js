@@ -11,6 +11,18 @@ $(document).ready(function(){
     var cityLat = 0;
     var currentCity = "";
 
+    var displayHistory = function(){
+        if(localStorage.getItem('cities')){
+            var storedCities = JSON.parse(localStorage.getItem('cities'));
+            for(var i = 0; i < storedCities.length; i++){
+                createHistoryEntry(storedCities[i]);
+            }
+        }
+        else{
+            return;
+        }
+    }
+
 
 
     var displayCurrentWeather = function(){
@@ -87,10 +99,8 @@ $(document).ready(function(){
     }
 
     var saveSearchHistory = function(cityName){
-        var storedCities = [];
-        console.log('cities');
         if(localStorage.getItem('cities')){
-            storedCities = JSON.parse(localStorage.getItem('cities'));
+            var storedCities = JSON.parse(localStorage.getItem('cities'));
             storedCities.push(cityName);
             localStorage.setItem('cities', JSON.stringify(storedCities));
             console.log(storedCities);
@@ -101,6 +111,7 @@ $(document).ready(function(){
         createHistoryEntry(cityName);
     }
 
+    displayHistory();
     //When the user submits a city name to the form, stop form default function,
     //display weather, and save city to history
     searchForm.submit(function(event){
