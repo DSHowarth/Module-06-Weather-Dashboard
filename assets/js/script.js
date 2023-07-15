@@ -92,12 +92,14 @@ $(document).ready(function(){
             displayCurrentWeather();
             displayForecast();
         })
-
+        
+        $('#weatherInfo').attr('style','display:inline-block');
     }
 
     //Creates a new button on the screen with a city name
     var createHistoryEntry = function(cityName){
         var newEntry = $('<button></button>');
+        newEntry.attr('class','m-1');
         newEntry.text(cityName);
         historyList.append(newEntry);
     }
