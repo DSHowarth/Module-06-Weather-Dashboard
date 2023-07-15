@@ -83,6 +83,7 @@ $(document).ready(function(){
         //request info, when received, parse it and extract latitude and longitude data.
         fetch(locUrl)
         .then(function (response){
+            console.log(response);
             return response.json();
         })
         .then(function(data){
