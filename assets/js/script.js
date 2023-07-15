@@ -75,6 +75,8 @@ $(document).ready(function(){
 
         })
     }
+
+    //Main function for populating page with weather info.
     var displayWeather = function(cityName){
         // create api url from city name
         var locUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&appid=7f9953f1dd73d072c914ff82ce5ca3d1';
@@ -98,10 +100,11 @@ $(document).ready(function(){
             //use lat/long data to populate page elements
             displayCurrentWeather();
             displayForecast();
+            saveSearchHistory(currentCity);
             //show weather info section on page, if this is the first search on load
             $('#weatherInfo').attr('style','display:inline-block');
         })
-        
+
 
     }
 
@@ -113,11 +116,14 @@ $(document).ready(function(){
         historyList.append(newEntry);
     }
 
+    //Stores search history in an array within localStorage. 
     var saveSearchHistory = function(cityName){
-        if (localStorage.getItem('cities').includes(cityName)){
-            return;
-        }
+        //Creates a new item if no search exists yet, otherwise pulls info and appends new search
         if(localStorage.getItem('cities')){
+            //Does not save if name already exists
+            if (localStorage.getItem('cities').includes(cityName)){
+                return;
+            }
             var storedCities = JSON.parse(localStorage.getItem('cities'));
             storedCities.push(cityName);
             localStorage.setItem('cities', JSON.stringify(storedCities));
@@ -138,9 +144,12 @@ $(document).ready(function(){
         event.preventDefault();
         currentCity = searchInput.val();
         displayWeather(currentCity);
-        saveSearchHistory(currentCity);
+
+        //clear input
+        searchInput.val('');
     })
 
+    //newly created history buttons will initiate weather display
     historyList.on('click', 'button', function(event){
         var buttonValue = event.target.textContent;
         displayWeather(buttonValue);
