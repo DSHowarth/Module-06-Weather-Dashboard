@@ -80,16 +80,23 @@ $(document).ready(function(){
 
     }
 
+    var createHistoryEntry = function(cityName){
+        var newEntry = $('<button></button>');
+        newEntry.text(cityName);
+        historyList.append(newEntry);
+    }
+
     var saveSearchHistory = function(cityName){
         var storedCities = [];
-        if(localStorage.getItem(cities)){
-            storedCities = JSON.parse(localStorage.getItem(cities));
+        console.log('cities');
+        if(localStorage.getItem('cities')){
+            storedCities = JSON.parse(localStorage.getItem('cities'));
             storedCities.push(cityName);
             localStorage.setItem('cities', JSON.stringify(storedCities));
             console.log(storedCities);
         }
         else{
-            localStorage.setItem('cities', JSON.stringify(cityName));
+            localStorage.setItem('cities', JSON.stringify([cityName]));
         }
         createHistoryEntry(cityName);
     }
