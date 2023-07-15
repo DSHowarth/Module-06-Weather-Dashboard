@@ -152,6 +152,9 @@ $(document).ready(function(){
     //newly created history buttons will initiate weather display
     historyList.on('click', 'button', function(event){
         var buttonValue = event.target.textContent;
+        //Clear input field so it doesn't get saved when executing a search from a history button
+        searchInput.val('');
+        
         displayWeather(buttonValue);
     })
 

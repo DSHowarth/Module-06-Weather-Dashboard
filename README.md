@@ -6,6 +6,8 @@ Powered by OpenWeather.
 ## Usage
 Simply visit https://dshowarth.github.io/Module-06-Weather-Dashboard/ and start searching! Every new search will give you the weather
 and store itself for easy access in the future. (Data stored locally)
+
+![Gif of website functionality](./Assets/WeatherDashboard.gif)
 ## Technologies Used
 - HTML
 - CSS
