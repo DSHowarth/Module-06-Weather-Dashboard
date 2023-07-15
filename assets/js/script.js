@@ -15,7 +15,6 @@ $(document).ready(function(){
     var displayHistory = function(){
         if(localStorage.getItem('cities')){
             var storedCities = JSON.parse(localStorage.getItem('cities'));
-            console.log(storedCities)
             for(var i = 0; i < storedCities.length; i++){
                 createHistoryEntry(storedCities[i]);
 
@@ -82,19 +81,28 @@ $(document).ready(function(){
 
         //request info, when received, parse it and extract latitude and longitude data.
         fetch(locUrl)
+
         .then(function (response){
-            console.log(response);
             return response.json();
         })
         .then(function(data){
+            //check whether the user entered a valid city name
+            if(data[0] === undefined){
+                $('#errorModal').modal('show');
+                return;
+            }
+
+            //set lat/long
             cityLon = data[0].lon;
             cityLat = data[0].lat;
             //use lat/long data to populate page elements
             displayCurrentWeather();
             displayForecast();
+            //show weather info section on page, if this is the first search on load
+            $('#weatherInfo').attr('style','display:inline-block');
         })
         
-        $('#weatherInfo').attr('style','display:inline-block');
+
     }
 
     //Creates a new button on the screen with a city name
@@ -124,7 +132,6 @@ $(document).ready(function(){
 
     //display history, if it exists, on page load
     displayHistory();
-
     //When the user submits a city name to the form, stop form default function,
     //display weather, and save city to history
     searchForm.submit(function(event){
