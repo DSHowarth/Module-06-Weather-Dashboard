@@ -79,7 +79,7 @@ $(document).ready(function(){
     //Main function for populating page with weather info.
     var displayWeather = function(cityName){
         // create api url from city name
-        var locUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&appid=7f9953f1dd73d072c914ff82ce5ca3d1';
+        var locUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&appid=7f9953f1dd73d072c914ff82ce5ca3d1';
 
         //request info, when received, parse it and extract latitude and longitude data.
         fetch(locUrl)
